@@ -3,7 +3,7 @@ package com.charlles.stock.services;
 import com.charlles.stock.dto.ProductDTO;
 import com.charlles.stock.entities.Product;
 import com.charlles.stock.repositories.ProductRepository;
-import com.charlles.stock.repositories.ProductSpecification;
+import com.charlles.stock.repositories.ProductSpecificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private ProductSpecification productSpecification;
+    private ProductSpecificationRepository productSpecification;
 
     public List<ProductDTO> findAll(){
         List<Product> result = productRepository.findAll();

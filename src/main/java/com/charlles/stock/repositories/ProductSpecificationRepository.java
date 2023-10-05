@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 
 @Repository
-public interface ProductSpecification {
+public interface ProductSpecificationRepository {
     public int updateProduct(Long productId, String name, Integer quantity, LocalDate expirationDate);
 }

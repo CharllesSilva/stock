@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 
 @Component
-public class ProductSpecifications implements ProductSpecification {
+public class ProductSpecifications implements ProductSpecificationRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
