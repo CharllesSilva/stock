@@ -2,12 +2,14 @@ package com.charlles.stock.controllers;
 
 import com.charlles.stock.dto.ProductDTO;
 import com.charlles.stock.entities.Product;
-import com.charlles.stock.servicies.ProductService;
+import com.charlles.stock.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -25,11 +27,27 @@ public class ProductController {
 
     }
 
-    @PostMapping("/saveProduct")
-    public ResponseEntity saveProduct(@RequestBody Product product) {
+    @PostMapping
+    public ResponseEntity<ProductDTO> saveProduct(@RequestBody Product product) {
         ProductDTO savedProduct = productService.saveProduct(product);
-        return new ResponseEntity(savedProduct, HttpStatus.CREATED);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedProduct.getId())
+                .toUri();
+        return ResponseEntity.created(uri).body(savedProduct);
 
     }
 
+    @PutMapping("/{productId}")
+    public ResponseEntity<Void> updateProduct(
+            @PathVariable Long productId,
+            @RequestParam String newName,
+            @RequestParam int newQuantity,
+            @RequestParam LocalDate newExpirationDate
+
+    ) {
+        productService.updateProduct(productId, newName, newQuantity, newExpirationDate);
+        return ResponseEntity.ok().build();
+    }
 }
