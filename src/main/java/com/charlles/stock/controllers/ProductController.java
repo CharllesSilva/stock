@@ -2,7 +2,7 @@ package com.charlles.stock.controllers;
 
 import com.charlles.stock.dto.ProductDTO;
 import com.charlles.stock.entities.Product;
-import com.charlles.stock.services.ProductService;
+import com.charlles.stock.services.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,14 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    private ProductServices productService;
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDTO> findById(@PathVariable Long productId) {
+        ProductDTO result = productService.findById(productId);
+        return ResponseEntity.ok().body(result);
+
+    }
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> findAll() {

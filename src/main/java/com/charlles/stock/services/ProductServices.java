@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-public class ProductService {
+public class ProductServices {
 
     @Autowired
     private ProductRepository productRepository;
@@ -21,7 +21,13 @@ public class ProductService {
     @Autowired
     private ProductSpecificationRepository productSpecification;
 
-    public List<ProductDTO> findAll(){
+    public ProductDTO findById(Long id) {
+        Product savedProduct = productRepository.findById(id).get();
+        ProductDTO productDTO = new ProductDTO(savedProduct);
+        return productDTO;
+    }
+
+    public List<ProductDTO> findAll() {
         List<Product> result = productRepository.findAll();
         return result.stream().map(x -> new ProductDTO(x)).toList();
     }
