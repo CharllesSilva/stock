@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -26,7 +27,8 @@ public class AuthController {
 		if (checkIfParamsIsNotNull(data))
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 		var token = authServices.signin(data);
-		if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
+		if (token == null)
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 		return token;
 	}
 
